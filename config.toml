@@ -16,5 +16,7 @@ highlight_code = false
 [extra]
 avatar = "images/avatar.jpg"
 social_links = [
-    { name = "github", url = "https://github.com/Resorie/zola-theme-nivis" }
+    { name = "linkedin", url = "https://www.linkedin.com/in/karen-turman-2952a33a5/" },
+    { name = "instagram", url = "https://www.instagram.com/turmanologie/" },
+    { name = "graduation-cap", url = "https://harvard.academia.edu/KarenTurman" },
 ]
