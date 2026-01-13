@@ -8,4 +8,4 @@ template = "about.html"
 Karen Turman est professeure de français et instructrice internationale de danse.
 Elle explore les intersections entre la langue, la culture et l’apprentissage incarné à travers l’enseignement, la recherche et le mouvement.
 
-Karen Turman is a french professor and international dance instructor exploring the intersections of language, culture, and embodied learning through teaching, scholarship, and movement.
+I am a French professor and international dance instructor exploring the intersections of language, culture, and embodied learning through teaching, scholarship, and movement.
