@@ -36,24 +36,7 @@
 <h1 class="title">
   <a href="{{ get_url(path=' @/_index.md', lang=lang) }}">{{ config.title }}</a>
 </h1>
-{% endblock page_heading %} {% block content %} {#
-<pre style="
-    font-size: xx-small;
-    height: 50vh;
-    overflow: auto;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    grid-column-start: 1;
-    grid-column-end: -1;
-    background-color: hsla(0, 0%, 90%, 1);
-  ">
-  <code>
-    {{ __tera_context | escape }}
-  </code>
-</pre>
-#}
+{% endblock page_heading %} {% block content %}
 
 <article class="content-article">
   <main class="article-content">
