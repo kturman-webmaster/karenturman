@@ -34,7 +34,10 @@
       <div class="title-inner">
         {% if config.extra.avatar %}
         <div class="avatar">
-          <img src="{{ get_url(path=config.extra.avatar) }}" alt="avatar">
+          <picture>
+            <source srcset="{{ get_url(path='images/avatar.webp') }}" type="image/webp">
+            <img src="{{ get_url(path=config.extra.avatar) }}" alt="avatar" loading="lazy">
+          </picture>
         </div>
         {% endif %}
 

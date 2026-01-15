@@ -1,7 +1,17 @@
-{% set url = get_url(path=src) %} {% if caption %}
+{% set url = get_url(path=src) %}
+{% set webp_src = src | replace(from=".jpg", to=".webp") | replace(from=".jpeg", to=".webp") | replace(from=".png", to=".webp") %}
+{% set webp_url = get_url(path=webp_src) %}
+{% if caption %}
 <figure {% if class %}class="{{ class }}" {% endif %}>
-  <img src="{{ url }}" alt="{{ alt | default(value="") }}" />
+  <picture>
+    <source srcset="{{ webp_url }}" type="image/webp">
+    <img src="{{ url }}" alt="{{ alt | default(value="") }}" loading="lazy" />
+  </picture>
   <figcaption>{{ caption | safe }}</figcaption>
 </figure>
-{% else %} <img src="{{ url }}" alt="{{ alt | default(value="") }}" {% if class %}class="{{ class }}" {% endif %} /> {%
-endif %}
+{% else %}
+<picture>
+  <source srcset="{{ webp_url }}" type="image/webp">
+  <img src="{{ url }}" alt="{{ alt | default(value="") }}" {% if class %}class="{{ class }}" {% endif %} loading="lazy" />
+</picture>
+{% endif %}
