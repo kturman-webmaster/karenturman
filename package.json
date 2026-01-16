@@ -8,8 +8,11 @@
     "server": "zola serve",
     "dev": "npm run css:watch & npm run server"
   },
-  "keywords": ["zola", "tailwind", "static-site"],
-  "author": "Karen Turman",
+  "keywords": [
+    "zola",
+    "tailwind",
+    "static-site"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@tailwindcss/cli": "^4.0.0",
