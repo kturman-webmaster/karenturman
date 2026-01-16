@@ -1,5 +1,5 @@
 +++
-title = "Profil|About"
+title = "About"
 template = "about.html"
 +++
 

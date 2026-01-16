@@ -1,11 +1,8 @@
-# The URL the site will be built for
 base_url = "https://karenturman.com"
 title = "Karen Turman"
 
-# Whether to automatically compile all Sass files in the sass directory
 compile_sass = false
 
-# Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
 
 [markdown]
@@ -19,9 +16,9 @@ social_links = [
     { name = "graduation-cap", url = "https://harvard.academia.edu/KarenTurman" },
 ]
 nav_links = [
-    { label = "Enseignement | Teaching", path = "@/teaching/index.md", short_path = "/teaching" },
-    { label = "Recherche | Research", path = "@/research/index.md", short_path = "/research" },
-    { label = "Danse Recherche | Dance Research", path = "@/dance-research/index.md", short_path = "/dance-research" },
-    { label = "Danse Enseignement | Dance Teaching", path = "@/dance-instruction/index.md", short_path = "/dance-instruction" },
-    { label = "Ressources | Resources", path = "@/resources/index.md", short_path = "/resources" },
+    { label = "Teaching", path = "@/teaching/index.md", short_path = "/teaching" },
+    { label = "Research", path = "@/research/index.md", short_path = "/research" },
+    { label = "Dance Research", path = "@/dance-research/index.md", short_path = "/dance-research" },
+    { label = "Dance Teaching", path = "@/dance-instruction/index.md", short_path = "/dance-instruction" },
+    { label = "Resources", path = "@/resources/index.md", short_path = "/resources" },
 ]

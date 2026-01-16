@@ -1,5 +1,5 @@
 +++
-title = "Danse Recherche | Dance Research"
+title = "Dance Research"
 template = "page.html"
 +++
 

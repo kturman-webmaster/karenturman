@@ -1,5 +1,5 @@
 +++
-title = "Recherche | Research"
+title = "Research"
 template = "page.html"
 +++
 

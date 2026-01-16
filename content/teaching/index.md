@@ -1,5 +1,5 @@
 +++
-title = "Enseignement | Teaching"
+title = "Teaching"
 template = "page.html"
 +++
 
