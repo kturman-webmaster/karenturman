@@ -89,6 +89,64 @@ CSP via meta tag was tested but removed as it requires server-level configuratio
 
 ---
 
+### 5. Tailwind CSS v4 Migration (Session: 2026-01-16)
+**Impact:** Successfully migrated from SCSS to Tailwind CSS v4.0 with modern build tooling
+
+**What was done:**
+- Converted 2,856 lines of SCSS (`sass/style.scss`) to 3,287 lines of Tailwind-compatible CSS (`css/main.css`)
+- Implemented Zolarwind pattern: npm + Tailwind CLI build step before Zola
+- Flattened all SCSS nesting to standard CSS selectors
+- Converted SCSS `@responsive-gutter` mixin to utility classes
+- Preserved all existing functionality:
+  - 30+ CSS custom properties for light/dark themes
+  - `[data-theme="dark"]` attribute system (no JavaScript changes)
+  - All animations (@keyframes fadeIn, fadeInDown)
+  - All pseudo-elements (::before, ::after)
+  - Gradient borders and backgrounds
+  - All hover effects and transitions
+  - All 5 responsive breakpoints (500px, 700px, 900px, 1100px, 1101px+)
+  - Syntax highlighting with 10 color variables
+  - macOS-style code block window controls
+
+**File changes:**
+- Created `package.json` with Tailwind CSS v4 dependencies and build scripts
+- Created `css/main.css` (3,287 lines) - Tailwind input file with all converted styles
+- Created `static/css/generated.css` (63KB minified) - Tailwind output
+- Modified `config.toml:6`: Set `compile_sass = false`
+- Modified `templates/_base.html:23`: Updated CSS reference to `css/generated.css`
+- Modified `.github/workflows/main.yml`: Added Node.js setup and Tailwind build steps
+- Updated `.gitignore`: Added `node_modules/`, `package-lock.json`, `static/css/generated.css`
+
+**Build process:**
+- Tailwind CSS build: 54ms
+- Zola build: 19ms
+- Total generated CSS: 63KB (minified)
+
+**GitHub Actions workflow:**
+- Added Node.js 20 setup with npm caching
+- Added `npm install` to install dependencies
+- Added `npm run css:build` before Zola build step
+
+**Development workflow:**
+- Before: `zola serve`
+- After: `npm run css:watch` (terminal 1) + `zola serve` (terminal 2), or `npm run dev` (single command)
+
+**Success criteria met:**
+- ✅ Site looks identical (pixel-perfect)
+- ✅ Theme toggle works without changes
+- ✅ All animations preserved
+- ✅ Build succeeds locally and in CI
+- ✅ CSS file size acceptable (63KB)
+- ✅ Build time < 2 minutes
+
+**Reference:**
+- Tailwind CSS v4: https://tailwindcss.com/blog/tailwindcss-v4
+- Zolarwind template: https://github.com/thomasweitzel/zolarwind
+- Implementation plan: `/home/john/.claude/plans/glowing-waddling-hanrahan.md`
+
+---
+
 ## Session History
 
 - **2026-01-15:** Image optimization (WebP conversion, 91.5% size reduction), code cleanup, protocol URL fix, security hardening (SRI integrity checks), JavaScript extraction (externalized to static/main.js, removed unused code highlighting)
+- **2026-01-16:** Tailwind CSS v4 migration (converted 2,856 lines SCSS to 3,287 lines Tailwind-compatible CSS, added npm build process, updated CI/CD workflow, preserved all functionality including themes and animations)
