@@ -1,1 +1,8 @@
 public/
+
+# Node.js dependencies
+node_modules/
+package-lock.json
+
+# Tailwind CSS generated output
+static/css/generated.css

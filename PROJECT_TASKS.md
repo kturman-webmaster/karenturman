@@ -30,35 +30,72 @@
 
 ### MEDIUM PRIORITY
 
-#### 2. CSS/SCSS Refactoring
-**Goal:** Improve maintainability by modularizing the 2,855-line monolithic stylesheet
+#### 2. Tailwind CSS v4 Migration (IN PROGRESS)
+**Goal:** Transition from SCSS to Tailwind CSS v4.0 for better maintainability and modern CSS tooling
 
 **Current state:**
-- Single file: `sass/style.scss` (2,855 lines)
-- No modular organization
-- Heavy nesting making specificity hard to track
-- Some redundant rule definitions
+- Single SCSS file: `sass/style.scss` (2,856 lines)
+- Zola's built-in SCSS compilation
+- CSS variable-based theming with `[data-theme="dark"]`
 
-**Proposed structure:**
-```
-sass/
-├── style.scss           # Main import file
-├── _variables.scss      # Colors, fonts, breakpoints
-├── _base.scss          # Reset, typography, body styles
-├── _layout.scss        # Grid, sidebar, main layout
-├── _components.scss    # Buttons, cards, nav, etc.
-├── _themes.scss        # Dark/light mode variables
-└── _utilities.scss     # Helper classes
-```
+**Target state:**
+- Tailwind CSS v4.0 with npm build step
+- Preserve existing theme toggle functionality
+- Convert SCSS to Tailwind-compatible CSS
+- Enable gradual template migration to Tailwind utilities
 
-**Tasks:**
-- [ ] Create modular SCSS file structure
-- [ ] Extract CSS variables to `_variables.scss`
-- [ ] Separate layout from components
-- [ ] Reduce selector nesting depth
-- [ ] Remove duplicate/redundant rules
-- [ ] Document complex CSS with comments
-- [ ] Test build and verify no regressions
+**Implementation Phases:**
+
+**Phase 1: Setup Foundation (2-3 hours)**
+- [x] Create plan and add to PROJECT_TASKS.md
+- [ ] Create feature branch: `tailwind-integration`
+- [ ] Create `package.json` with Tailwind dependencies
+- [ ] Create `css/` directory structure
+- [ ] Update `.gitignore` with Node.js entries
+- [ ] Install npm dependencies
+
+**Phase 2: CSS Migration (8-12 hours)**
+- [ ] Read and analyze `sass/style.scss`
+- [ ] Create `css/main.css` with Tailwind import
+- [ ] Convert CSS custom properties to `@theme` block
+- [ ] Convert all SCSS to standard CSS (flatten nesting)
+- [ ] Preserve all animations, gradients, pseudo-elements
+- [ ] Test CSS build: `npm run css:build`
+
+**Phase 3: Zola Configuration (30 min)**
+- [ ] Update `config.toml`: set `compile_sass = false`
+- [ ] Update `templates/_base.html`: change CSS reference to `css/generated.css`
+
+**Phase 4: GitHub Actions (1 hour)**
+- [ ] Update `.github/workflows/main.yml` with Node.js setup
+- [ ] Add Tailwind CSS build step to workflow
+- [ ] Test deployment pipeline
+
+**Phase 5: Testing & Verification**
+- [ ] Visual regression testing at all breakpoints
+- [ ] Theme toggle functionality testing
+- [ ] Animation and hover effect verification
+- [ ] Cross-browser testing
+- [ ] Performance testing (Lighthouse)
+- [ ] Deploy to test branch
+- [ ] Verify on GitHub Pages
+- [ ] Merge to main if successful
+
+**Timeline:**
+- Foundation phase: 11-17 hours
+- Optional template migration: 30-55 hours (future work)
+
+**Success Criteria:**
+- Site looks identical (pixel-perfect)
+- Theme toggle works without changes
+- All animations and effects preserved
+- Build time ≤ 2 minutes
+- CSS file size ≤ current + 20%
+
+**Reference:**
+- Plan saved at: `/home/john/.claude/plans/glowing-waddling-hanrahan.md`
+- Zolarwind template: https://github.com/thomasweitzel/zolarwind
+- Tailwind v4: https://tailwindcss.com/blog/tailwindcss-v4
 
 ---
 

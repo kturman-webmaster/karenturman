@@ -1,0 +1,18 @@
+{
+  "name": "karenturman-website",
+  "version": "1.0.0",
+  "description": "Karen Turman personal website - French professor and international dance instructor",
+  "scripts": {
+    "css:build": "tailwindcss -i ./css/main.css -o ./static/css/generated.css --minify",
+    "css:watch": "tailwindcss -i ./css/main.css -o ./static/css/generated.css --watch",
+    "server": "zola serve",
+    "dev": "npm run css:watch & npm run server"
+  },
+  "keywords": ["zola", "tailwind", "static-site"],
+  "author": "Karen Turman",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "tailwindcss": "^4.0.0"
+  }
+}
