@@ -2,29 +2,30 @@
 {% block title %}
 {{ page.title }} | {{ config.title }}
 {% endblock title %}
+
+{# Override description blocks with page-specific content #}
+{% block description %}
+{% if page.description %}{{ page.description }}{% elif page.summary %}{{ page.summary | striptags | truncate(length=160) }}{% else %}{{ config.description }}{% endif %}
+{% endblock description %}
+
+{% block og_type %}article{% endblock og_type %}
+{% block og_title %}{{ page.title }} | {{ config.title }}{% endblock og_title %}
+{% block og_description %}
+{% if page.description %}{{ page.description }}{% elif page.summary %}{{ page.summary | striptags | truncate(length=160) }}{% else %}{{ config.description }}{% endif %}
+{% endblock og_description %}
+
+{% block twitter_title %}{{ page.title }} | {{ config.title }}{% endblock twitter_title %}
+{% block twitter_description %}
+{% if page.description %}{{ page.description }}{% elif page.summary %}{{ page.summary | striptags | truncate(length=160) }}{% else %}{{ config.description }}{% endif %}
+{% endblock twitter_description %}
+
 {% block head %}
-
-<!-- Primary Meta Tags -->
-{% if page.description %}
-{% set description = page.description %}
-{%- elif page.summary %}
-{% set description = page.summary %}
-{% else %}
-{% set description = page.content %}
-{% endif %}
-
-<meta name="description" content="{{ description | striptags | truncate(length=100) | safe }}" />
-
-<!-- Open Graph / Facebook -->
-<meta property="og:title" content="{{ page.title }} | {{ config.title }}" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="{{ page.permalink | safe }}" />
+{# Additional page-specific meta tags #}
 {% if page.date %}
-<meta property="article:published_time" content="{{ page.date }}" />
-<meta property="article:modified_time" content="{{ page.date }}" />
+<meta property="article:published_time" content="{{ page.date }}">
+<meta property="article:modified_time" content="{{ page.date }}">
 {% endif %}
-<meta property="article:section" content="{{ page.components | first }}" />
-
+<meta property="article:section" content="{{ page.components | first }}">
 {% endblock head %}
 {% block page_heading %}
 {%- if lang == config.default_language %}

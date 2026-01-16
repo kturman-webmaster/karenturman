@@ -1,9 +1,12 @@
 base_url = "https://karenturman.com"
 title = "Karen Turman"
+description = "Karen Turman - French professor, literary scholar, and international dance instructor specializing in French literature, dance research, and cultural studies"
 
 compile_sass = false
 
 build_search_index = false
+generate_feeds = true
+feed_filenames = ["atom.xml"]
 
 [markdown]
 insert_anchor_links = "none"

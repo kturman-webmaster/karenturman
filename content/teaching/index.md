@@ -1,5 +1,6 @@
 +++
 title = "Teaching"
+description = "Karen Turman's innovative French teaching approach integrates diverse perspectives, community engagement scholarship, and experiential learning through real-world interactions with Francophone communities"
 template = "page.html"
 +++
 

@@ -1,5 +1,6 @@
 +++
 title = "About"
+description = "Karen Turman - French professor and international dance instructor exploring the intersections of language, culture, and embodied learning through teaching, scholarship, and movement"
 template = "about.html"
 +++
 

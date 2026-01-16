@@ -1,5 +1,6 @@
 +++
 title = "Research"
+description = "Research on Second Language Acquisition, community engagement scholarship, Francophone Pacific topics, dance pedagogy, Jazz Age Paris, fashion studies, and popular culture studies"
 template = "page.html"
 +++
 

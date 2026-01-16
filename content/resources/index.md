@@ -1,5 +1,6 @@
 +++
 title = "Resources"
+description = "CV, resume, and professional resources for Karen Turman - French professor, researcher, and international dance instructor"
 template = "page.html"
 +++
 

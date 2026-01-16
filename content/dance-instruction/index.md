@@ -1,5 +1,6 @@
 +++
 title = "Dance Teaching"
+description = "International Lindy Hop instructor Karen Turman teaches jazz roots dance, Lindy Hop, and swing dancing with award-winning technique and joyfully energetic style"
 template = "page.html"
 +++
 

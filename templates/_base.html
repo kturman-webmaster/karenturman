@@ -8,6 +8,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{{ config.title }}{% endblock title %}</title>
 
+  {# Meta Description #}
+  <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
+
+  {# Open Graph Tags #}
+  <meta property="og:type" content="{% block og_type %}website{% endblock og_type %}">
+  <meta property="og:title" content="{% block og_title %}{{ config.title }}{% endblock og_title %}">
+  <meta property="og:description" content="{% block og_description %}{{ config.description }}{% endblock og_description %}">
+  <meta property="og:url" content="{{ current_url | default(value=config.base_url) }}">
+  <meta property="og:site_name" content="{{ config.title }}">
+  {% if config.extra.avatar %}
+  <meta property="og:image" content="{{ get_url(path=config.extra.avatar, trailing_slash=false) | safe }}">
+  {% endif %}
+
+  {# Twitter Card Tags #}
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{% block twitter_title %}{{ config.title }}{% endblock twitter_title %}">
+  <meta name="twitter:description" content="{% block twitter_description %}{{ config.description }}{% endblock twitter_description %}">
+  {% if config.extra.avatar %}
+  <meta name="twitter:image" content="{{ get_url(path=config.extra.avatar, trailing_slash=false) | safe }}">
+  {% endif %}
+
+  {# JSON-LD Structured Data - Person Schema #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Karen Turman",
+    "url": "{{ config.base_url }}",
+    "jobTitle": "French Professor and Dance Instructor",
+    "description": "{{ config.description }}",
+    "sameAs": [
+      "https://www.linkedin.com/in/karen-turman-2952a33a5/",
+      "https://www.instagram.com/turmanologie/",
+      "https://harvard.academia.edu/KarenTurman"
+    ],
+    "knowsAbout": ["French Literature", "Dance Research", "Cultural Studies", "International Dance Instruction"]
+  }
+  </script>
+
   {% block feed_link %}
   {% endblock feed_link %}
 
