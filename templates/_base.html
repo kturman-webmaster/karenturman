@@ -115,66 +115,7 @@
     </div>
   </div>
 
-  <script>
-    function toggleSidebar() {
-      var sidebar = document.getElementById("sidebar");
-      var mask = document.getElementById("sidebar-mask");
-      sidebar.classList.toggle("open");
-      mask.classList.toggle("open");
-    }
-
-    function toggleTheme() {
-      const body = document.body;
-      const icon = document.getElementById("theme-icon");
-      if (body.getAttribute("data-theme") === "dark") {
-        body.setAttribute("data-theme", "light");
-        icon.classList.remove("fa-sun");
-        icon.classList.add("fa-moon");
-        localStorage.setItem("theme", "light");
-      } else {
-        body.setAttribute("data-theme", "dark");
-        icon.classList.remove("fa-moon");
-        icon.classList.add("fa-sun");
-        localStorage.setItem("theme", "dark");
-      }
-    }
-
-    // Initialize theme
-    (function () {
-      const savedTheme = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-      if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-        document.body.setAttribute("data-theme", "dark");
-        // Icon update will happen after DOM load if we put this script at the end, 
-        // but since this is inline at the end of body, we might need to wait for DOMContentLoaded if the icon isn't ready?
-        // Actually, this script is at the end of body, so elements should be parsed.
-        const icon = document.getElementById("theme-icon");
-        if (icon) {
-          icon.classList.remove("fa-moon");
-          icon.classList.add("fa-sun");
-        }
-      }
-    })();
-
-    // Footnote Navigation
-    document.addEventListener("DOMContentLoaded", function () {
-      // Code Block Language Label
-      document.querySelectorAll('pre code').forEach(code => {
-        const pre = code.parentElement;
-        if (!pre.hasAttribute('data-lang')) {
-          const classes = code.className.split(' ');
-          for (const cls of classes) {
-            if (cls.startsWith('language-')) {
-              pre.setAttribute('data-lang', cls.replace('language-', ''));
-              break;
-            }
-          }
-        }
-      });
-    });
-  </script>
-
+  <script src="{{ get_url(path='main.js') }}"></script>
   <script src="https://instant.page/5.1.0" type="module"
     integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
 </body>
