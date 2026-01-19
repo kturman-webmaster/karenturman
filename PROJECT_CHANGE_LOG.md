@@ -322,8 +322,45 @@ To activate the form, user needs to:
 
 ---
 
+### 10. Pre-commit Hooks (Session: 2026-01-19)
+**Impact:** Automated build validation to catch errors before committing
+
+**What was done:**
+- Created pre-commit hook script that validates builds before commits
+- Hook runs `npm run css:build` and `zola build` to catch errors early
+- Prevents commits if builds fail
+- Created install script for easy setup
+- Updated README with installation instructions
+
+**File changes:**
+- Created `hooks/pre-commit`: Pre-commit hook script
+  - Validates Tailwind CSS build
+  - Validates Zola site build
+  - Shows clear success/failure messages
+  - Exits with error code if builds fail
+- Created `hooks/install.sh`: Installation script
+  - Creates symlink from `.git/hooks/pre-commit` to `hooks/pre-commit`
+  - Provides usage instructions
+- Modified `README.md`: Added pre-commit hooks section with setup instructions
+
+**How it works:**
+- Developers run `./hooks/install.sh` to install the hook
+- Git automatically runs the hook before each commit
+- Hook validates CSS and Zola builds
+- Commit is blocked if either build fails
+- Can be skipped with `git commit --no-verify` when needed
+
+**Benefits:**
+- Catches build errors before they're committed
+- Prevents broken builds from being pushed to repository
+- Improves code quality and CI/CD reliability
+- Developer-friendly with clear error messages
+- Opt-in (developers must install manually)
+
+---
+
 ## Session History
 
 - **2026-01-15:** Image optimization (WebP conversion, 91.5% size reduction), code cleanup, protocol URL fix, security hardening (SRI integrity checks), JavaScript extraction (externalized to static/main.js, removed unused code highlighting)
 - **2026-01-16:** Tailwind CSS v4 migration (converted 2,856 lines SCSS to 3,287 lines Tailwind-compatible CSS, added npm build process, updated CI/CD workflow, preserved all functionality including themes and animations), SEO improvements (RSS feeds, Open Graph tags, Twitter Cards, JSON-LD structured data, meta descriptions for all pages), contact form implementation (Web3Forms integration, dedicated /contact page, honeypot spam protection, 139 lines of form styling)
-- **2026-01-19:** Cache busting implementation (added content-based hash parameters to CSS and JS asset URLs for automatic cache invalidation), README documentation (comprehensive project documentation including deployment process, build workflow, and configuration)
+- **2026-01-19:** Cache busting implementation (added content-based hash parameters to CSS and JS asset URLs for automatic cache invalidation), README documentation (comprehensive project documentation including deployment process, build workflow, and configuration), pre-commit hooks (automated build validation before commits)

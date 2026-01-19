@@ -21,6 +21,16 @@ cd karenturman
 npm install
 ```
 
+### Pre-commit Hooks (Recommended)
+
+Install the pre-commit hook to validate builds before committing:
+
+```bash
+./hooks/install.sh
+```
+
+The hook runs `npm run css:build` and `zola build` before each commit. To skip temporarily: `git commit --no-verify`
+
 ## Development
 
 - `npm run css:build` - Build and minify Tailwind CSS

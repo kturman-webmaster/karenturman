@@ -137,6 +137,25 @@
 - Project Structure, Key Features, Configuration
 - Contributing, License, Acknowledgments
 
+### ✅ 6. Pre-commit Hooks (Completed: 2026-01-19)
+**Goal:** Automated build validation to prevent broken commits
+
+**Completed:**
+- ✅ Created pre-commit hook script (`hooks/pre-commit`)
+- ✅ Hook validates Tailwind CSS build and Zola build
+- ✅ Created installation script (`hooks/install.sh`)
+- ✅ Updated README with setup instructions
+- ✅ Tested hook successfully
+- ✅ Clear error messages on build failures
+- ✅ Opt-in installation (symlink to `.git/hooks/`)
+
+**How it works:**
+- Run `./hooks/install.sh` to install
+- Hook runs before each commit
+- Validates `npm run css:build` and `zola build`
+- Blocks commit if builds fail
+- Skip with `git commit --no-verify` when needed
+
 ---
 
 ## Next Steps (Prioritized)
@@ -146,7 +165,6 @@
 #### 1. Build & Deployment Enhancements
 **Tasks:**
 - [ ] Add image compression to build pipeline
-- [ ] Add pre-commit hooks for validation
 - [ ] Consider adding staging environment
 
 ---

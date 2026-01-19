@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Pre-commit hook to validate build before committing
+# Runs CSS build and Zola build to catch errors early
+
+set -e
+
+echo "Running pre-commit validation..."
+
+# Build Tailwind CSS
+echo "→ Building Tailwind CSS..."
+if ! npm run css:build > /dev/null 2>&1; then
+  echo "✗ Tailwind CSS build failed"
+  echo "  Run 'npm run css:build' to see the error"
+  exit 1
+fi
+echo "✓ Tailwind CSS build successful"
+
+# Build Zola site
+echo "→ Building Zola site..."
+if ! zola build > /dev/null 2>&1; then
+  echo "✗ Zola build failed"
+  echo "  Run 'zola build' to see the error"
+  exit 1
+fi
+echo "✓ Zola build successful"
+
+echo "✓ All validation checks passed"
+exit 0
