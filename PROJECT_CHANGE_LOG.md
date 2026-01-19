@@ -247,7 +247,41 @@ To activate the form, user needs to:
 
 ---
 
+### 8. Cache Busting Implementation (Session: 2026-01-19)
+**Impact:** Improved cache management for CSS and JS assets to ensure users always receive latest versions
+
+**What was done:**
+- Added `cachebust=true` parameter to `get_url()` function for CSS and JS files
+- Zola now automatically appends content-based hash query parameters to asset URLs
+- Hash changes whenever file content changes, forcing browser cache invalidation
+
+**File changes:**
+- Modified `templates/_base.html:62`: Updated CSS link from `get_url(path="css/generated.css")` to `get_url(path="css/generated.css", cachebust=true)`
+- Modified `templates/_base.html:157`: Updated JS script from `get_url(path='main.js')` to `get_url(path='main.js', cachebust=true)`
+
+**How it works:**
+- Zola generates SHA-256 hash of file content
+- Hash appended as query parameter: `generated.css?h=b9560d73276421d26bc0`
+- When file content changes, hash changes, bypassing browser cache
+- No manual version management required
+
+**Verification:**
+- Generated HTML shows hash parameters on both assets:
+  - CSS: `css/generated.css?h=b9560d73276421d26bc0`
+  - JS: `main.js?h=8cd4a7b6c1a2228e37b5`
+- Build succeeds without errors (CSS: 39ms, Zola: 14ms)
+
+**Benefits:**
+- Users automatically receive latest CSS/JS updates after deployment
+- No stale cache issues when updating styles or JavaScript
+- Content-based hashing (only changes when files actually change)
+- Zero maintenance overhead (automatic hash generation)
+- Works seamlessly with existing build pipeline
+
+---
+
 ## Session History
 
 - **2026-01-15:** Image optimization (WebP conversion, 91.5% size reduction), code cleanup, protocol URL fix, security hardening (SRI integrity checks), JavaScript extraction (externalized to static/main.js, removed unused code highlighting)
 - **2026-01-16:** Tailwind CSS v4 migration (converted 2,856 lines SCSS to 3,287 lines Tailwind-compatible CSS, added npm build process, updated CI/CD workflow, preserved all functionality including themes and animations), SEO improvements (RSS feeds, Open Graph tags, Twitter Cards, JSON-LD structured data, meta descriptions for all pages), contact form implementation (Web3Forms integration, dedicated /contact page, honeypot spam protection, 139 lines of form styling)
+- **2026-01-19:** Cache busting implementation (added content-based hash parameters to CSS and JS asset URLs for automatic cache invalidation)

@@ -103,6 +103,21 @@
 - Plan saved at: `/home/john/.claude/plans/glowing-waddling-hanrahan.md`
 - Web3Forms docs: https://docs.web3forms.com/
 
+### ✅ 4. Cache Busting for CSS/JS Assets (Completed: 2026-01-19)
+**Goal:** Ensure users always receive latest CSS and JS files after deployments
+
+**Completed:**
+- ✅ Added `cachebust=true` parameter to CSS and JS asset URLs in `_base.html`
+- ✅ Zola now appends content-based SHA-256 hash to asset query parameters
+- ✅ Hash automatically changes when file content changes
+- ✅ Zero maintenance overhead (automatic hash generation by Zola)
+- ✅ Verified in generated HTML (hashes present on both assets)
+
+**How it works:**
+- Content-based hashing: `css/generated.css?h=b9560d73276421d26bc0`
+- Browser cache automatically invalidated when files change
+- No stale cache issues for users after deployments
+
 ---
 
 ## Next Steps (Prioritized)
@@ -112,7 +127,6 @@
 #### 1. Build & Deployment Enhancements
 **Tasks:**
 - [ ] Add image compression to build pipeline
-- [ ] Implement cache busting for CSS/JS assets
 - [ ] Add pre-commit hooks for validation
 - [ ] Document deployment process in README
 - [ ] Consider adding staging environment

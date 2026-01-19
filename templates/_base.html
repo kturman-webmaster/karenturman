@@ -59,7 +59,7 @@
   <link rel='stylesheet' href='https://unpkg.com/ress/dist/ress.min.css'
     integrity="sha384-lnvXb4jt0lfurlwpl/DgFKSL4Q/CX41Lz3OqIvzxbMPbVvubCu1MVoabK9Yzz7GB"
     crossorigin="anonymous">
-  <link rel="stylesheet" href='{{ get_url(path="css/generated.css") }}'>
+  <link rel="stylesheet" href='{{ get_url(path="css/generated.css", cachebust=true) }}'>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet"
     integrity="sha384-rWj9FmWWt3OMqd9vBkWRhFavvVUYalYqGPoMdL1brs/qvvqz88gvLShYa4hKNyqb"
     crossorigin="anonymous">
@@ -154,7 +154,7 @@
     </div>
   </div>
 
-  <script src="{{ get_url(path='main.js') }}"></script>
+  <script src="{{ get_url(path='main.js', cachebust=true) }}"></script>
   <script src="https://instant.page/5.1.0" type="module"
     integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
 </body>
