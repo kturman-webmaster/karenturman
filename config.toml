@@ -24,4 +24,5 @@ nav_links = [
     { label = "Dance Research", path = "@/dance-research/index.md", short_path = "/dance-research" },
     { label = "Dance Teaching", path = "@/dance-instruction/index.md", short_path = "/dance-instruction" },
     { label = "Resources", path = "@/resources/index.md", short_path = "/resources" },
+    { label = "Contact", path = "@/contact/index.md", short_path = "/contact" },
 ]
