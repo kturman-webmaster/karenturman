@@ -2,55 +2,107 @@
 
 ## Project Overview
 
-Static portfolio website built with Zola (Rust-based static site generator) for Karen Turman, a French professor and international dance instructor. Deployed via GitHub Actions to GitHub Pages.
+Static portfolio website for Karen Turman (French professor and international dance instructor).
 
-**Base URL:** https://karenturman.com
-**Tech Stack:** Zola 0.22+, SCSS, vanilla JavaScript, Font Awesome 7.0.1
-
----
-
-## Configuration Details
-
-- **Config file:** `config.toml`
-- **Base URL:** https://karenturman.com
-- **Build command:** `zola build`
-- **Output directory:** `public/` (gitignored)
-- **Deployment:** GitHub Actions (`.github/workflows/main.yml`)
-- **Target branch:** `gh-pages`
+**Live Site:** https://karenturman.com
+**Repository:** GitHub (deployed via GitHub Actions to GitHub Pages)
 
 ---
 
-## Key Template Files
+## Tech Stack
 
-- `templates/_base.html` - Main layout template
-- `templates/index.html` - Homepage
-- `templates/page.html` - Standard pages
-- `templates/about.html` - About page
-- `templates/_macros.html` - Reusable components (social icons)
-- `templates/shortcodes/image.html` - Image shortcode with WebP support
-- `static/main.js` - External JavaScript (theme toggle, sidebar toggle)
+- **Zola** v0.22.0+ (Rust-based static site generator)
+- **Tailwind CSS** v4.0 (utility-first CSS framework)
+- **Node.js** v20+ & npm (for Tailwind build)
+- **GitHub Actions** (CI/CD)
+- **GitHub Pages** (hosting)
 
 ---
 
-## Content Structure
+## Build Process
 
-- Bilingual (French/English)
-- 5 main sections: Teaching, Research, Dance Research, Dance Teaching, Resources
-- Navigation defined in `config.toml` under `extra.nav_links`
+### Local Development
+```bash
+npm run dev          # CSS watch + Zola server (recommended)
+# OR
+npm run css:watch    # Terminal 1
+npm run server       # Terminal 2
+```
+
+### Production Build
+```bash
+npm run css:build    # Build Tailwind CSS → static/css/generated.css
+zola build           # Build site → public/
+```
+
+### Deployment
+- Push to `main` → GitHub Actions runs build → deploys to `gh-pages` branch
+- GitHub Pages serves from `gh-pages` branch
+- Workflow: `.github/workflows/main.yml`
 
 ---
 
-## Known Issues
+## Project Structure
 
-- No current issues after optimizations
-- All builds passing successfully
+```
+├── content/              # Markdown content (6 pages + contact)
+├── css/main.css          # Tailwind CSS input (3,426 lines)
+├── static/
+│   ├── css/generated.css # Tailwind output (gitignored)
+│   ├── images/           # WebP optimized images
+│   └── main.js           # Theme toggle & sidebar JS
+├── templates/            # Zola/Tera templates
+├── hooks/                # Git hooks (pre-commit validation)
+├── config.toml           # Zola configuration
+└── public/               # Build output (gitignored)
+```
 
 ---
 
-## Quick Start for Development
+## Key Features
 
-1. Review PROJECT_TASKS.md for current priorities
-2. Run `zola build` to verify current state
-3. Make changes
-4. Test locally with `zola serve`
-5. Update PROJECT_CHANGE_LOG.md when tasks are completed
+- **Bilingual content** (French/English)
+- **Theme system:** Light/dark mode toggle with localStorage persistence
+- **SEO optimized:** Open Graph, Twitter Cards, JSON-LD, RSS feed
+- **Cache busting:** SHA-256 hashes on CSS/JS assets (`cachebust=true`)
+- **Contact form:** Web3Forms integration with honeypot spam protection
+- **Performance:** WebP images (91.5% size reduction), lazy loading, minified CSS
+- **Pre-commit hooks:** Validates builds before commits (`./hooks/install.sh`)
+
+---
+
+## Configuration Files
+
+- `config.toml` - Site config, navigation, feeds, social links
+- `package.json` - npm scripts, Tailwind dependencies
+- `css/main.css` - Tailwind input with custom CSS and theme variables
+- `.github/workflows/main.yml` - CI/CD pipeline
+
+---
+
+## Important Notes
+
+### Contact Form Setup
+- Uses Web3Forms (free tier: 250 submissions/month)
+- Access key needed: Replace `YOUR-ACCESS-KEY-HERE` in `content/contact/index.md:11`
+- Get key from: https://web3forms.com/
+
+### Theme System
+- CSS custom properties in `css/main.css`
+- `[data-theme="dark"]` attribute for dark mode
+- No JavaScript changes needed for new themed components
+
+### Pre-commit Hook
+- Optional but recommended: `./hooks/install.sh`
+- Validates `npm run css:build` and `zola build` before commits
+- Skip with: `git commit --no-verify`
+
+---
+
+## Quick Start for New Sessions
+
+1. Read `PROJECT_TASKS.md` for current priorities
+2. Check `PROJECT_CHANGE_LOG.md` for recent changes
+3. Run `npm run dev` for local development
+4. Make changes and test
+5. Update change log when completing tasks

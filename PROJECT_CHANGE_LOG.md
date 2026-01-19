@@ -1,366 +1,93 @@
 # Karen Turman Website - Change Log
 
-## Completed Optimizations
+## Session: 2026-01-15
 
-### 1. Image Optimization (Session: 2026-01-15)
-**Impact:** Reduced total image size from ~7MB to ~649KB (91.5% reduction)
+### Image Optimization
+- Converted all images to WebP format (91.5% size reduction: ~7MB → ~649KB)
+- Added responsive `<picture>` elements with fallbacks
+- Implemented lazy loading
 
-**What was done:**
-- Converted all images to WebP format using nix-shell with libwebp
-- Added responsive picture elements with WebP/fallback support
-- Implemented lazy loading on all images
-- Updated image shortcode template (`templates/shortcodes/image.html`)
-- Updated avatar references in `templates/_base.html` and `templates/index.html`
+### Code Cleanup
+- Removed unused jQuery.mmenu CSS dependency
+- Removed debug code from templates
+- Fixed protocol-relative URL for instant.page
 
-**File changes:**
-- Created WebP versions of all images in `static/images/`:
-  - `avatar.jpg`: 3.0MB → 51KB (98.3% reduction)
-  - `headshot-1.jpg`: 2.8MB → 144KB (94.9% reduction)
-  - `headshot-2.jpg`: 1.1MB → 64KB (94.2% reduction)
-  - `dance-3.jpg`: 461KB → 224KB (51.4% reduction)
-  - `dance-4.jpg`: 259KB → 116KB (55.2% reduction)
-  - `dance-1.jpeg`: 41KB → 30KB
-  - `dance-2.jpeg`: 31KB → 20KB
+### Security Hardening
+- Added SRI integrity checks on CDN resources (ress.min.css, Font Awesome)
+- Added `crossorigin="anonymous"` to all external resources
 
-**Template updates:**
-- `templates/shortcodes/image.html`: Now uses `<picture>` element with WebP source and fallback
-- `templates/_base.html:35-42`: Avatar now uses picture element
-- `templates/index.html:22-29`: Avatar now uses picture element
-
-**Accessibility improvements:**
-- Updated alt text in `content/dance-instruction/index.md:8`
-- Updated alt text in `content/about/index.md:6`
+### JavaScript Extraction
+- Externalized inline JS to `static/main.js` (theme toggle, sidebar)
+- Removed unused code highlighting logic
+- Improved browser caching
 
 ---
 
-### 2. Code Cleanup (Session: 2026-01-15)
+## Session: 2026-01-16
 
-**What was done:**
-- Removed unused jQuery.mmenu CSS dependency from `templates/_base.html:20`
-- Removed commented debug code block from `templates/page.html:39-56` (was displaying Tera context)
-- Fixed protocol-relative URL: `//instant.page/5.1.0` → `https://instant.page/5.1.0` in `templates/_base.html:173`
+### Tailwind CSS v4 Migration
+- Converted 2,856 lines SCSS to 3,287 lines Tailwind-compatible CSS
+- Added npm build process (`package.json`, npm scripts)
+- Updated GitHub Actions workflow to include Tailwind build step
+- Preserved all functionality: themes, animations, responsive breakpoints
 
-**Note:** `templates/anchor-link.html` is intentionally blank - needed to suppress anchor link rendering even though `config.toml` has `insert_anchor_links = "none"`
+**Files:**
+- Created: `css/main.css`, `package.json`, `static/css/generated.css`
+- Modified: `config.toml` (disabled SCSS), `templates/_base.html`, `.github/workflows/main.yml`
 
----
+### SEO Improvements
+- Enabled RSS/Atom feeds in `config.toml`
+- Added Open Graph and Twitter Card meta tags to `_base.html`
+- Added JSON-LD structured data (Person schema)
+- Added meta descriptions to all 6 content pages
+- Updated `page.html` to use template blocks for meta tags
 
-### 3. Security Hardening (Session: 2026-01-15)
-**Impact:** Enhanced security with SRI integrity checks on all CDN resources
+### Contact Form
+- Created `/contact` page with Web3Forms integration
+- Added honeypot spam protection
+- Added 139 lines of form CSS with dark mode support
+- Added Contact to navigation in `config.toml`
 
-**What was done:**
-- Added SRI (Subresource Integrity) hashes to CDN resources:
-  - `ress.min.css`: `sha384-lnvXb4jt0lfurlwpl/DgFKSL4Q/CX41Lz3OqIvzxbMPbVvubCu1MVoabK9Yzz7GB`
-  - `Font Awesome 7.0.1`: `sha384-rWj9FmWWt3OMqd9vBkWRhFavvVUYalYqGPoMdL1brs/qvvqz88gvLShYa4hKNyqb`
-  - `instant.page` already had SRI
-- Added `crossorigin="anonymous"` to all external resources including Google Fonts
-- Reviewed `| safe` filter usage - confirmed all instances are safe (site-controlled content only)
-
-**File changes:**
-- `templates/_base.html:16-25`: Added integrity and crossorigin attributes to CDN resources
-
-**Google Fonts note:**
-Google Fonts cannot use SRI because it dynamically generates CSS based on user agent. Added `crossorigin="anonymous"` for CORS security.
-
-**CSP note:**
-CSP via meta tag was tested but removed as it requires server-level configuration (GitHub Pages) or more permissive policies. SRI checks provide strong protection against CDN tampering.
+**Action Required:** Get Web3Forms access key and update `content/contact/index.md:11`
 
 ---
 
-### 4. JavaScript Extraction (Session: 2026-01-16)
-**Impact:** Improved caching and maintainability by externalizing JavaScript
+## Session: 2026-01-19
 
-**What was done:**
-- Created `static/main.js` containing:
-  - Theme toggle function with localStorage persistence
-  - Sidebar toggle function
-  - Theme initialization based on user preference and system settings
-- Removed ~60 lines of inline JavaScript from `templates/_base.html`
-- Removed unused code syntax highlighting logic (was targeting pre/code elements but not used)
-- Updated `templates/_base.html:118` to reference external script
+### Cache Busting
+- Added `cachebust=true` parameter to CSS/JS URLs in `templates/_base.html`
+- Zola now appends SHA-256 hash query parameters automatically
+- Browser cache invalidates when file content changes
 
-**File changes:**
-- Created `static/main.js` (40 lines)
-- `templates/_base.html:118-120`: Replaced inline script with external reference
+**Files Modified:** `templates/_base.html` (lines 62, 157)
 
-**Benefits:**
-- Better browser caching (JS now cached separately from HTML)
-- Cleaner template code
-- Easier to maintain and update JavaScript logic
+### README Documentation
+- Created comprehensive README.md
+- Documented setup, development, build, deployment processes
+- Added project structure and configuration notes
 
----
+### Pre-commit Hooks
+- Created `hooks/pre-commit` validation script
+- Validates `npm run css:build` and `zola build` before commits
+- Created `hooks/install.sh` installation script
+- Updated README with setup instructions
 
-### 5. Tailwind CSS v4 Migration (Session: 2026-01-16)
-**Impact:** Successfully migrated from SCSS to Tailwind CSS v4.0 with modern build tooling
-
-**What was done:**
-- Converted 2,856 lines of SCSS (`sass/style.scss`) to 3,287 lines of Tailwind-compatible CSS (`css/main.css`)
-- Implemented Zolarwind pattern: npm + Tailwind CLI build step before Zola
-- Flattened all SCSS nesting to standard CSS selectors
-- Converted SCSS `@responsive-gutter` mixin to utility classes
-- Preserved all existing functionality:
-  - 30+ CSS custom properties for light/dark themes
-  - `[data-theme="dark"]` attribute system (no JavaScript changes)
-  - All animations (@keyframes fadeIn, fadeInDown)
-  - All pseudo-elements (::before, ::after)
-  - Gradient borders and backgrounds
-  - All hover effects and transitions
-  - All 5 responsive breakpoints (500px, 700px, 900px, 1100px, 1101px+)
-  - Syntax highlighting with 10 color variables
-  - macOS-style code block window controls
-
-**File changes:**
-- Created `package.json` with Tailwind CSS v4 dependencies and build scripts
-- Created `css/main.css` (3,287 lines) - Tailwind input file with all converted styles
-- Created `static/css/generated.css` (63KB minified) - Tailwind output
-- Modified `config.toml:6`: Set `compile_sass = false`
-- Modified `templates/_base.html:23`: Updated CSS reference to `css/generated.css`
-- Modified `.github/workflows/main.yml`: Added Node.js setup and Tailwind build steps
-- Updated `.gitignore`: Added `node_modules/`, `package-lock.json`, `static/css/generated.css`
-
-**Build process:**
-- Tailwind CSS build: 54ms
-- Zola build: 19ms
-- Total generated CSS: 63KB (minified)
-
-**GitHub Actions workflow:**
-- Added Node.js 20 setup with npm caching
-- Added `npm install` to install dependencies
-- Added `npm run css:build` before Zola build step
-
-**Development workflow:**
-- Before: `zola serve`
-- After: `npm run css:watch` (terminal 1) + `zola serve` (terminal 2), or `npm run dev` (single command)
-
-**Success criteria met:**
-- ✅ Site looks identical (pixel-perfect)
-- ✅ Theme toggle works without changes
-- ✅ All animations preserved
-- ✅ Build succeeds locally and in CI
-- ✅ CSS file size acceptable (63KB)
-- ✅ Build time < 2 minutes
-
-**Reference:**
-- Tailwind CSS v4: https://tailwindcss.com/blog/tailwindcss-v4
-- Zolarwind template: https://github.com/thomasweitzel/zolarwind
-- Implementation plan: `/home/john/.claude/plans/glowing-waddling-hanrahan.md`
+**Usage:** Run `./hooks/install.sh` to install hook
 
 ---
 
-### 6. SEO Improvements (Session: 2026-01-16)
-**Impact:** Significantly improved search engine visibility and social media sharing with comprehensive SEO enhancements
+## Quick Reference
 
-**What was done:**
-- Enabled RSS/Atom feed generation in `config.toml`
-- Added site-wide description for better search results
-- Added comprehensive meta tags to `templates/_base.html`:
-  - Meta description with block override capability
-  - Open Graph tags (og:type, og:title, og:description, og:url, og:site_name, og:image)
-  - Twitter Card tags (summary card with title, description, image)
-  - JSON-LD structured data for Person schema with professional details
-- Updated `templates/page.html` to use template blocks for consistent meta tag structure
-- Added custom descriptions to all content pages for targeted SEO
+### Major Changes by Impact
+1. **Tailwind CSS v4 Migration** - New build process, npm required
+2. **Image Optimization** - 91.5% size reduction, WebP format
+3. **Contact Form** - New `/contact` page (needs Web3Forms key)
+4. **SEO** - Meta tags, feeds, structured data
+5. **Cache Busting** - Automatic versioning of CSS/JS
+6. **Pre-commit Hooks** - Build validation before commits
 
-**File changes:**
-- Modified `config.toml`: Added `description`, `generate_feeds = true`, `feed_filenames = ["atom.xml"]`
-- Modified `templates/_base.html:11-48`: Added meta description, Open Graph tags, Twitter Cards, and JSON-LD structured data
-- Modified `templates/page.html:6-29`: Updated to use template blocks for meta tags instead of hardcoded values
-- Added `description` field to all content pages:
-  - `content/teaching/index.md`
-  - `content/research/index.md`
-  - `content/dance-instruction/index.md`
-  - `content/dance-research/index.md`
-  - `content/resources/index.md`
-  - `content/about/index.md`
-
-**Auto-generated files (by Zola):**
-- `atom.xml` - RSS feed with site description
-- `sitemap.xml` - Sitemap for search engines
-- `robots.txt` - Search engine crawler instructions with sitemap reference
-
-**SEO features implemented:**
-- ✅ RSS/Atom feed for content syndication
-- ✅ Robots.txt and sitemap.xml auto-generation
-- ✅ Open Graph protocol for Facebook/LinkedIn sharing
-- ✅ Twitter Card markup for Twitter sharing
-- ✅ JSON-LD structured data (Person schema) for rich search results
-- ✅ Custom meta descriptions for all pages
-- ✅ Proper og:image and twitter:image using avatar
-
-**Benefits:**
-- Improved search engine discoverability
-- Better social media link previews
-- Rich snippets in search results via structured data
-- Content syndication via RSS feed
-- Page-specific SEO optimization
-
----
-
-### 7. Contact Form Implementation (Session: 2026-01-16)
-**Impact:** Added dedicated contact page with Web3Forms integration and comprehensive spam protection
-
-**What was done:**
-- Created dedicated contact page at `/contact` with professional form design
-- Integrated Web3Forms as form backend service (free tier: 250 submissions/month)
-- Implemented honeypot spam protection (invisible checkbox field)
-- Added comprehensive form styling with dark mode support
-- Added Contact page to navigation (sidebar and top nav)
-- Used existing CSS custom properties for seamless theme integration
-
-**File changes:**
-- Created `content/contact/index.md`: Contact page with HTML form
-  - Form action: https://api.web3forms.com/submit
-  - Fields: Name (text, required), Email (email, required), Message (textarea, required)
-  - Hidden fields: access_key, redirect URL
-  - Honeypot field: checkbox with `name="botcheck"`
-- Modified `css/main.css` (added 139 lines): Form styling section
-  - `.contact-form`, `.form-group`, `.submit-btn` classes
-  - Dark mode variants using `[data-theme="dark"]`
-  - Responsive breakpoints (500px, 700px)
-  - Honeypot field hiding with multiple CSS rules
-- Modified `config.toml:27`: Added Contact to nav_links array
-
-**Form features:**
-- Accessible design with proper label associations
-- HTML5 validation (required fields)
-- Focus states for keyboard navigation
-- Responsive design (mobile-friendly)
-- Theme-aware styling (matches existing site aesthetic)
-- Hover effects matching site patterns (translateY -2px transition)
-
-**Build verification:**
-- Tailwind CSS build: 48ms
-- Zola build: 9ms (now creating 7 pages)
-- No build errors
-
-**User action required:**
-To activate the form, user needs to:
-1. Visit https://web3forms.com/
-2. Enter email address to receive access key
-3. Replace `YOUR-ACCESS-KEY-HERE` in `content/contact/index.md:11` with the actual access key
-
-**Benefits:**
-- Professional contact solution with no backend maintenance
-- Free tier (250 emails/month) - sufficient for this use case
-- Email notifications sent directly to user's email
-- Honeypot spam protection without requiring CAPTCHAs
-- Seamless integration with existing site design and theme system
-
----
-
-### 8. Cache Busting Implementation (Session: 2026-01-19)
-**Impact:** Improved cache management for CSS and JS assets to ensure users always receive latest versions
-
-**What was done:**
-- Added `cachebust=true` parameter to `get_url()` function for CSS and JS files
-- Zola now automatically appends content-based hash query parameters to asset URLs
-- Hash changes whenever file content changes, forcing browser cache invalidation
-
-**File changes:**
-- Modified `templates/_base.html:62`: Updated CSS link from `get_url(path="css/generated.css")` to `get_url(path="css/generated.css", cachebust=true)`
-- Modified `templates/_base.html:157`: Updated JS script from `get_url(path='main.js')` to `get_url(path='main.js', cachebust=true)`
-
-**How it works:**
-- Zola generates SHA-256 hash of file content
-- Hash appended as query parameter: `generated.css?h=b9560d73276421d26bc0`
-- When file content changes, hash changes, bypassing browser cache
-- No manual version management required
-
-**Verification:**
-- Generated HTML shows hash parameters on both assets:
-  - CSS: `css/generated.css?h=b9560d73276421d26bc0`
-  - JS: `main.js?h=8cd4a7b6c1a2228e37b5`
-- Build succeeds without errors (CSS: 39ms, Zola: 14ms)
-
-**Benefits:**
-- Users automatically receive latest CSS/JS updates after deployment
-- No stale cache issues when updating styles or JavaScript
-- Content-based hashing (only changes when files actually change)
-- Zero maintenance overhead (automatic hash generation)
-- Works seamlessly with existing build pipeline
-
----
-
-### 9. README Documentation (Session: 2026-01-19)
-**Impact:** Comprehensive project documentation for developers and contributors
-
-**What was done:**
-- Created comprehensive `README.md` with full project documentation
-- Documented local development setup and workflow
-- Documented production build process step-by-step
-- Documented GitHub Actions CI/CD deployment pipeline
-- Added project structure overview with directory explanations
-- Documented all key features (theme system, performance, SEO, security)
-- Added troubleshooting and configuration guides
-
-**File changes:**
-- Created `README.md` (237 lines): Complete project documentation
-  - Technologies and prerequisites section
-  - Local development setup instructions
-  - Available npm scripts documentation
-  - Build process explanation (Tailwind + Zola)
-  - CI/CD deployment workflow documentation
-  - Project structure with directory tree
-  - Key features overview
-  - Configuration instructions (Web3Forms, site config)
-  - Browser support and acknowledgments
-
-**Sections included:**
-- **Getting Started**: Prerequisites, installation, local setup
-- **Development**: npm scripts, watch mode, dev server
-- **Build Process**: Production build steps, what happens during build
-- **Deployment**: Automatic CI/CD via GitHub Actions, manual deployment option
-- **Project Structure**: Directory tree with explanations
-- **Key Features**: Theme system, performance, SEO, security, contact form
-- **Configuration**: Web3Forms setup, site configuration in config.toml
-
-**Benefits:**
-- New developers can onboard quickly
-- Clear documentation of deployment pipeline
-- Reference for all npm scripts and workflows
-- Documents technical decisions and optimizations
-- Improves project maintainability
-
----
-
-### 10. Pre-commit Hooks (Session: 2026-01-19)
-**Impact:** Automated build validation to catch errors before committing
-
-**What was done:**
-- Created pre-commit hook script that validates builds before commits
-- Hook runs `npm run css:build` and `zola build` to catch errors early
-- Prevents commits if builds fail
-- Created install script for easy setup
-- Updated README with installation instructions
-
-**File changes:**
-- Created `hooks/pre-commit`: Pre-commit hook script
-  - Validates Tailwind CSS build
-  - Validates Zola site build
-  - Shows clear success/failure messages
-  - Exits with error code if builds fail
-- Created `hooks/install.sh`: Installation script
-  - Creates symlink from `.git/hooks/pre-commit` to `hooks/pre-commit`
-  - Provides usage instructions
-- Modified `README.md`: Added pre-commit hooks section with setup instructions
-
-**How it works:**
-- Developers run `./hooks/install.sh` to install the hook
-- Git automatically runs the hook before each commit
-- Hook validates CSS and Zola builds
-- Commit is blocked if either build fails
-- Can be skipped with `git commit --no-verify` when needed
-
-**Benefits:**
-- Catches build errors before they're committed
-- Prevents broken builds from being pushed to repository
-- Improves code quality and CI/CD reliability
-- Developer-friendly with clear error messages
-- Opt-in (developers must install manually)
-
----
-
-## Session History
-
-- **2026-01-15:** Image optimization (WebP conversion, 91.5% size reduction), code cleanup, protocol URL fix, security hardening (SRI integrity checks), JavaScript extraction (externalized to static/main.js, removed unused code highlighting)
-- **2026-01-16:** Tailwind CSS v4 migration (converted 2,856 lines SCSS to 3,287 lines Tailwind-compatible CSS, added npm build process, updated CI/CD workflow, preserved all functionality including themes and animations), SEO improvements (RSS feeds, Open Graph tags, Twitter Cards, JSON-LD structured data, meta descriptions for all pages), contact form implementation (Web3Forms integration, dedicated /contact page, honeypot spam protection, 139 lines of form styling)
-- **2026-01-19:** Cache busting implementation (added content-based hash parameters to CSS and JS asset URLs for automatic cache invalidation), README documentation (comprehensive project documentation including deployment process, build workflow, and configuration), pre-commit hooks (automated build validation before commits)
+### Current State
+- Build: `npm run css:build && zola build`
+- Dev: `npm run dev` or separate terminals for CSS watch + Zola server
+- Deploy: Automatic via GitHub Actions on push to `main`
+- All optimizations complete, site production-ready
