@@ -165,8 +165,49 @@ Paragraph text.
 
 ---
 
+## Design Decisions
+
+### Two-Breakpoint Responsive Strategy
+
+This site uses a simplified two-breakpoint responsive approach:
+
+- **Desktop (>600px):** Base styles, full-width content within container
+- **Mobile (<=600px):** Content gets `5vw` horizontal padding (90vw effective width)
+
+**Rationale:**
+- Simpler to maintain than 4+ breakpoints (900/700/500px)
+- 600px cleanly separates phone from tablet/desktop
+- Avoids complex `calc()` formulas for intermediate sizes
+- Easier to reason about during development
+
+**Implementation pattern:**
+```css
+/* Base style (desktop) */
+.content-article .article-content > p {
+  line-height: 1.6em;
+}
+
+/* Mobile override */
+@media screen and (max-width: 600px) {
+  .content-article .article-content > p {
+    padding: 0 5vw;
+  }
+}
+```
+
+**Note:** Some legacy sections (header, sidebar, footer) still use older breakpoints (900/700/500px). The `.content-article` section uses the simplified approach.
+
+---
+
 ## Responsive Breakpoints
 
+### Article Content (Simplified)
+```css
+/* Mobile */
+@media screen and (max-width: 600px) { }
+```
+
+### Legacy (Header, Sidebar, Footer)
 ```css
 /* Desktop → Tablet */
 @media screen and (max-width: 900px) { }
@@ -178,7 +219,7 @@ Paragraph text.
 @media screen and (max-width: 500px) { }
 ```
 
-Mobile-first is NOT used here. Base styles are desktop, then override for smaller screens.
+Mobile-first is NOT used. Base styles are desktop, then override for smaller screens.
 
 ---
 

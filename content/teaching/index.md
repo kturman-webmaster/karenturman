@@ -14,3 +14,9 @@ I also optimize experiential learning through real-world interactions inside and
 - French 50: Justice, Equity, Rights, and Language
 - French 62: Exploring Sustainable Practices in French Industry—Fashion, Cuisine, and Music
 
+<div class="cta-section">
+<p>Available for tutoring in French with customized lesson design including DELF exam prep, AP exam prep, and other specific purposes. Please contact me to start the conversation!</p>
+<p><em>Available for "try before you buy" 30-minute free session.</em></p>
+<a href="/contact" class="cta-btn">Get in Touch</a>
+</div>
+

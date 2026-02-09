@@ -71,6 +71,7 @@ Deployment is automatic: push to `main` → GitHub Actions → `gh-pages` branch
 
 - **Bilingual content** (French/English)
 - **Theme system:** Light/dark mode with localStorage persistence
+- **Responsive:** Two-breakpoint strategy (desktop >600px, mobile <=600px)
 - **SEO:** Open Graph, Twitter Cards, JSON-LD, RSS feed
 - **Cache busting:** SHA-256 hashes on CSS/JS assets
 - **Contact form:** Web3Forms with honeypot spam protection
