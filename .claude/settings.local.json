@@ -3,7 +3,8 @@
     "allow": [
       "Bash(ls:*)",
       "Bash(npm run css:build:*)",
-      "Bash(zola build:*)"
+      "Bash(zola build:*)",
+      "Bash(npm run build:*)"
     ]
   }
 }
