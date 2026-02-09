@@ -116,9 +116,7 @@
     <div class="page-top">
 
       <nav class="nav">
-        <a href="{{ get_url(path='@/_index.md', lang=lang) }}">
-          Accueil | Home
-        </a>
+        <a href="{{ get_url(path='@/_index.md', lang=lang) }}">Home</a>
         {% for nav_link in config.extra.nav_links %}
         <a href="{{ get_url(path=nav_link.path, lang=lang) }}" {% if current_path is starting_with(nav_link.short_path)
           %} class="active" {% endif %}>
