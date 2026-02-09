@@ -94,6 +94,14 @@ Install build validation (recommended):
 
 Skip temporarily: `git commit --no-verify`
 
+## Skills
+
+Custom commands for common tasks:
+
+- `/new-page <name> [title]` - Create a new content page and add to navigation
+- `/wrap-up` - End-of-session tasks (update session log, create commit message)
+- `/check` - Run build validation (Tailwind + Zola)
+
 ## Documentation
 
 See `.claude/` for detailed docs:
@@ -101,3 +109,4 @@ See `.claude/` for detailed docs:
 - **SESSION_LOG.md** - History of previous Claude sessions
 - **TROUBLESHOOTING.md** - Common issues and fixes
 - **PATTERNS.md** - Code patterns (Tera, CSS, content files)
+- **skills/** - Skill definitions
