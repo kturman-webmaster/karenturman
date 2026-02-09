@@ -99,3 +99,5 @@ Skip temporarily: `git commit --no-verify`
 See `.claude/` for detailed docs:
 - **ROADMAP.md** - Completed tasks & remaining work
 - **SESSION_LOG.md** - History of previous Claude sessions
+- **TROUBLESHOOTING.md** - Common issues and fixes
+- **PATTERNS.md** - Code patterns (Tera, CSS, content files)

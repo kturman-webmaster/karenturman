@@ -1,5 +1,7 @@
 public/
 
+temp_commit_message.txt
+
 # Node.js dependencies
 node_modules/
 package-lock.json
